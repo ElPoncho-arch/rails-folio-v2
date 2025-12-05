@@ -1,2 +1,247 @@
 @import 'bootstrap/scss/bootstrap';
-@import 'bootstrap-icons/font/bootstrap-icons';
+@import "bootstrap-icons/font/bootstrap-icons.scss";
+
+// ====== GLOBAL ======
+body {
+  background: #e4e4e4; // fond plus sombre pour le halo
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Segoe UI", sans-serif;
+  color: #232323;
+}
+
+/* Wrapper global : halo + contenu */
+.page-wrapper {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* ====== HOME MOBILE FIRST ====== */
+
+.home {
+  position: relative;
+  min-height: 100vh;
+  padding: 1.5rem 1.5rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2; // contenu au-dessus des halos
+}
+
+/* Menu en haut à droite */
+.home__header {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+}
+
+.home__nav-button {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(9, 11, 32, 0.85);
+  backdrop-filter: blur(18px);
+  border-radius: 999px;
+  padding: 0.4rem 1.2rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 500;
+  color: #f5f5f5;
+}
+
+/* Libellés en bas au centre sur mobile */
+.home__side {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1.5rem;
+}
+
+.home__side-link {
+  border: none;
+  background: transparent;
+  padding: 0;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  opacity: 0.7;
+  color: #f5f5f5;
+}
+
+/* Nom centré */
+.home__center {
+  text-align: center;
+}
+
+.home__name {
+  font-size: clamp(2.2rem, 10vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.08em;
+}
+
+/* ====== VERSION DESKTOP ====== */
+
+@media (min-width: 768px) {
+  .home {
+    padding: 2rem 3rem;
+  }
+
+  .home__side {
+    top: 50%;
+    bottom: auto;
+    left: 2rem;
+    transform: translateY(-50%);
+    flex-direction: column;
+  }
+
+  .home__side-link {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: 0.8rem;
+  }
+
+  .home__name {
+    font-size: clamp(3rem, 6vw, 4.5rem);
+  }
+}
+
+/* ====== HALOS BLEUS ====== */
+/* Les positions de base sont gérées par data-base-x / data-base-y dans le HTML.
+   Le JS s'occupe de bouger tout ça autour du centre. */
+
+.blob-bg {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 55vmax;
+  height: 55vmax;
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  filter: blur(70px);
+  opacity: 0.8;
+  will-change: transform, box-shadow;
+  mix-blend-mode: screen;
+}
+
+/* HALO 1 : noyau principal bleu klein / électrique */
+.blob-bg--primary {
+  width: 60vmax;
+  height: 60vmax;
+  z-index: 0;
+
+  background: radial-gradient(
+    circle at 30% 30%,
+    #0000ff,
+    #0015ff 40%,
+    #003cff 70%,
+    transparent 80%
+  );
+
+  box-shadow: 0 0 190px rgba(36, 92, 255, 0.6);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -25%;
+    border-radius: inherit;
+    background: radial-gradient(
+      circle at 30% 30%,
+      rgba(0, 47, 167, 0.95),
+      rgba(36, 92, 255, 0.85) 45%,
+      rgba(79, 195, 255, 0) 80%
+    );
+    filter: blur(80px);
+    opacity: 0.8;
+    pointer-events: none;
+    animation: blob-breathe 11s ease-in-out infinite alternate;
+  }
+}
+
+/* HALO 2 : plus petit, décalé cyan, un peu plus soft */
+.blob-bg--secondary {
+  width: 48vmax;
+  height: 48vmax;
+  z-index: -1;
+  opacity: 0.7;
+  filter: blur(80px);
+
+  background: radial-gradient(
+    circle at 60% 40%,
+    #00b7ff,
+    #0084ff 40%,
+    transparent 80%
+  );
+
+  box-shadow: 0 0 170px rgba(0, 183, 255, 0.55);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -30%;
+    border-radius: inherit;
+    background: radial-gradient(
+      circle at 40% 60%,
+      rgba(0, 183, 255, 0.9),
+      rgba(0, 119, 255, 0.6) 45%,
+      rgba(79, 195, 255, 0) 80%
+    );
+    filter: blur(85px);
+    opacity: 0.6;
+    pointer-events: none;
+    animation: blob-breathe 14s ease-in-out infinite alternate;
+  }
+}
+
+/* HALO 3 : accent plus petit, légère touche magenta/rose */
+.blob-bg--tertiary {
+  width: 40vmax;
+  height: 40vmax;
+  z-index: -2;
+  opacity: 0.6;
+  filter: blur(85px);
+
+  background: radial-gradient(
+    circle at 40% 30%,
+    #3f00ff,
+    #7b2cff 35%,
+    #ce075a 65%,
+    transparent 80%
+  );
+
+  box-shadow: 0 0 160px rgba(206, 7, 90, 0.55);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -30%;
+    border-radius: inherit;
+    background: radial-gradient(
+      circle at 30% 60%,
+      rgba(123, 44, 255, 0.9),
+      rgba(206, 7, 90, 0.7) 40%,
+      rgba(255, 255, 255, 0) 80%
+    );
+    filter: blur(90px);
+    opacity: 0.7;
+    pointer-events: none;
+    animation: blob-breathe 16s ease-in-out infinite alternate;
+  }
+}
+
+/* Respiration subtile des halos (utilisé par les ::before) */
+@keyframes blob-breathe {
+  0% {
+    transform: scale(0.94);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scale(1.07);
+    opacity: 0.95;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+}
