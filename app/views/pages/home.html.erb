@@ -1,40 +1,58 @@
 <div class="page-wrapper" data-controller="blob">
-  
-
-  <div class="blob-bg blob-bg--primary"
-       data-blob-target="blob"
-       data-base-x="35"
-       data-base-y="35"></div>
-
-  <div class="blob-bg blob-bg--secondary"
-       data-blob-target="blob"
-       data-base-x="120"
-       data-base-y="-40"></div>
-
-  <div class="blob-bg blob-bg--tertiary"
-       data-blob-target="blob"
-       data-base-x="-150"
-       data-base-y="80"></div>
-
+  <div class="blob-bg blob-bg--outer"></div>
+  <div class="blob-bg blob-bg--inner"></div>
 
   <section class="home">
-    <header class="home__header">
-      <nav class="home__nav">
-        <button class="home__nav-button" type="button">
-          Menu
-        </button>
-      </nav>
-    </header>
+    <div class="home__corner home__corner--left">
+      <button class="home__logo" type="button" aria-label="Logo VIVR">
+        <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <rect x="6" y="6" width="36" height="36" rx="2" ry="2"></rect>
+          <polyline points="14 19 24 29 34 19"></polyline>
+        </svg>
+      </button>
+    </div>
 
-    <aside class="home__side">
-      <button class="home__side-link" type="button">projet</button>
-      <button class="home__side-link" type="button">bio</button>
+    <div class="home__corner home__corner--right">
+      <button class="home__nav-button"
+              type="button"
+              aria-label="Ouvrir le menu"
+              data-controller="menu"
+              data-menu-target="button"
+              data-action="click->menu#toggle">
+        <span class="home__nav-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+    </div>
+
+    <aside class="home__side home__side--left">
+      <span class="home__side-text">MOTION</span>
+      <span class="home__side-text">DESIGNER</span>
     </aside>
 
+    <%# <aside class="home__side home__side--right">
+      <span class="home__dots" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </aside> %>
+
     <main class="home__center">
-      <h1 class="home__name">
-        Eric Arnould
+      <h1 class="home__title">
+        <span>fabien</span>
+        <span>hoarau</span>
       </h1>
     </main>
+
+    <%# <footer class="home__footer">
+      <span class="home__footer-link">WWW.VIVR.KR</span>
+      <span class="home__footer-credit">
+        <span>/ AN EUN-JOO</span>
+        <span>SHIN DONG-MIN</span>
+      </span>
+    </footer> %>
   </section>
 </div>
